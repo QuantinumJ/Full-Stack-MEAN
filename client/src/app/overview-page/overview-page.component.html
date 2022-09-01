@@ -1,0 +1,47 @@
+<div class="page-title">
+    <h4>
+        Resultado de ayer {{yesterday | date:'dd.MM.yyyy'}}
+        <i class="material-icons black-text pointer" (click)="openInfo()">info_outline</i>
+    </h4>
+</div>
+
+
+<div class="row" *ngIf="data$ | async as data; else loader">
+    <div class="col s12 l6">
+        <div class="card light-green lighten-2 white-text">
+            <div class="card-content">
+                <span class="card-title">Ganancias:</span>
+                <h3> {{data.gain.yesterday}} €.</h3>
+                <h3 class="green-text text-darken-2 m0 mb1" [ngClass]="{ 'green-text text-darken-2': data.gain.isHigher, 'red-text':!data.gain.isHigher}">
+                    <i class="material-icons">{{data.gain.isHigher ? 'arrow_upward': 'arrow_downward'}}</i> {{data.gain.percent}} %
+                </h3>
+                <p> Las gancias de ayer son {{data.gain.percent}}%  {{data.gain.isHigher ? 'mas': 'menos'}} de media: {{data.gain.compare}} €. al dia</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col s12 l6">
+        <div class="card orange lighten-2 white-text">
+            <div class="card-content">
+                <span class="card-title">Pedidos:</span>
+                <h3>{{data.orders.yesterday}} pedidos.</h3>
+                <h3 class="m0 mb1"  [ngClass]="{ 'green-text text-darken-2': data.orders.isHigher, 'red-text':!data.orders.isHigher}">
+                    <i class="material-icons">{{data.orders.isHigher ? 'arrow_upward' : 'arrow_downward'}}</i> {{data.orders.percent}}%
+                </h3>
+                <p> La cantidad de pedidos ayer son {{data.orders.percent}}%  {{data.orders.isHigher ? 'mas': 'menos'}} de media: {{data.orders.compare}} de pedidos al dia</p>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>
+
+<div class="tap-target" data-target="menu" #tapTarget>
+  <div class="tap-target-content">
+      <h5>¿Para que sirve esta pagina?</h5>
+      <p>
+        La pagina "Revision" mostrará la dinamica de ventas del dia anterior. La comparacion del resultado de media ayudará a entender que tal va la empresa.
+      </p>
+  </div>
+</div>
