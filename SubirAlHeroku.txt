@@ -1,0 +1,30 @@
+Para subir la aplicacion full. 
+1. Compilamos nuestro front a modo produccion
+2. En nuestro bachh-end en archivo raiz( app.js) hay que configurar dicha aoplicacion 
+
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static('client/dist/client'))
+
+    app.get('*', (req, res)=>{
+        res.sendFile(
+            path.resolve(
+                __dirname, 'client', 'dist', 'client', 'index.html'
+            )
+        )
+    })
+}
+
+3. Registrarse y logearse en heroku. 
+4. Descargar la cli de heroku.
+5. logearse por la terminal heroku login
+6. Creacion del proyecto  heroku create --> Es necesario estar logiado y tener instalado el git
+7. En Heroku web configurar el proyecto. En las variables le pasamos la variables de keys 
+8.  configurar package.json => el script de heroku ("heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run client-install && npm run build --prefix client")
+9. Confugurar nuevo atributo "engines": {
+        "node": "16.14.2",
+        "npm": "8.5.0"
+
+    },
+10. Configurar package.json en el front . Hay que mover las dependecias devDependencies( "@angular/compiler-cli": "^14.0.0",
+      "@angular/cli": "~14.0.1", "typescript": "~4.7.2",)  a las dependecias raizes
+
